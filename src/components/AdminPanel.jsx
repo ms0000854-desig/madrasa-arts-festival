@@ -268,10 +268,18 @@ export default function AdminPanel({ onClose, isEmbedded = false }) {
                   required
                   value={selectedEventId}
                   onChange={(e) => {
-                    setSelectedEventId(e.target.value);
-                    setFirstStudentId('');
-                    setSecondStudentId('');
-                    setThirdStudentId('');
+                    const evtId = e.target.value;
+                    setSelectedEventId(evtId);
+                    const existingRes = results[evtId];
+                    if (existingRes) {
+                      setFirstStudentId(existingRes.first?.studentId || '');
+                      setSecondStudentId(existingRes.second?.studentId || '');
+                      setThirdStudentId(existingRes.third?.studentId || '');
+                    } else {
+                      setFirstStudentId('');
+                      setSecondStudentId('');
+                      setThirdStudentId('');
+                    }
                   }}
                   className="w-full p-3 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold text-white mt-1 focus:outline-none focus:border-amber-500"
                 >
